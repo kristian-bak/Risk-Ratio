@@ -6,6 +6,7 @@
 #df_invest <- data.frame("File" = files, "Investment" = all_investments, stringsAsFactors = FALSE)
 
 source("ui/ui - tab1.R")
+source("ui/ui - tab2.R")
 
 ui <- fluidPage(
   
@@ -13,7 +14,7 @@ ui <- fluidPage(
   
   tabsetPanel(
     f_tab1(), 
-    tabPanel(title = "Technical analysis")
+    f_tab2()
   ) 
   
 )
