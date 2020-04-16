@@ -2,8 +2,10 @@
 ## Risk ratio app
 ######################################
 
-source("packages.R")
-source("ui.R")
-source("server.R")
+setwd("./")
+
+source("functions/packages.R")
+source("ui/ui.R")
+source("server/server.R")
 
 shinyApp(ui, server)

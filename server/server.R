@@ -1,4 +1,4 @@
-source("functions.R")
+source("functions/functions.R")
 
 df_year <- data.frame(choices = c("1 year", "3 years", "5 years", "All data"), 
                       year = c("y1", "y3", "y5", "All"), 
