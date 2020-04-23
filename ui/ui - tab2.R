@@ -45,16 +45,10 @@ f_tab2 <- function() {
            conditionalPanel(
              condition = "input.go_load > 0", 
              fluidRow(
-               column(3,
-                      dateRangeInput(inputId = "date_global_range",
-                                     label = 'Global date range input:',
-                                     start = Sys.Date() - 180, end = Sys.Date() - 61
-                      )
-               ), 
-               column(3, 
-                      dateRangeInput(inputId = "date_local_range",
-                                     label = 'Local date range input:',
-                                     start = Sys.Date() - 60, end = Sys.Date()
+               column(3, offset = 2,
+                      dateRangeInput(inputId = "date_range",
+                                     label = 'date range input:',
+                                     start = Sys.Date() - 180, end = Sys.Date()
                       )
                ), 
                column(1, offset = 1,  
