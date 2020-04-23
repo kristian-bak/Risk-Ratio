@@ -130,14 +130,14 @@ server <- function(input, output, session) {
                                date = 0, 
                                stock = 0, 
                                counter = 1,
-                               candle_day1 = NULL,
-                               candle_day2 = NULL,
-                               g_names = NULL,
-                               l_names = NULL,
-                               names = NULL,
-                               g_lines = NULL,
-                               l_lines = NULL, 
-                               lines = NULL)
+                               day1 = NULL,
+                               day2 = NULL,
+                               start_day = NULL,
+                               end_day = NULL,
+                               lines = NULL,
+                               line_names = NULL, 
+                               start_candlestick = NULL, 
+                               candlestick = NULL)
   
   ticker <- reactive({
     
@@ -207,13 +207,15 @@ server <- function(input, output, session) {
     
     react_var2$price_today <- react_var2$data$Close[nrow(react_var2$data)]
   
-    react_var2$candlestick <- plot_ly(react_var2$data, x = ~Date, type = "candlestick",
+    react_var2$start_candlestick <- plot_ly(react_var2$data, x = ~Date, type = "candlestick",
                                       open = ~Open, close = ~Close,
                                       high = ~High, low = ~Low, name = "candlestick") %>% 
       layout(title = react_var2$stock,
              yaxis = list(title = "Stock price"),
              xaxis = list(rangeslider = list(visible = F)), 
              legend = list(orientation = 'h', x = 0.2, y = 1))
+    
+    react_var2$candlestick <- react_var2$start_candlestick
     
   })
   
@@ -225,52 +227,42 @@ server <- function(input, output, session) {
   
   observeEvent(input$go_levels, {
     
+    react_var2$counter <- 1
+    
     data <- react_var2$data
     
-    g1 <- input$date_g_range[1]
-    g2 <- input$date_g_range[2]
+    day1 <- input$date_range[1]
+    day2 <- input$date_range[2]
     
-    l1 <- input$date_l_range[1]
-    l2 <- input$date_l_range[2]
-    
-    g_upper <- max(data$High[data$Date >= g1 & data$Date <= g2])
-    g_lower <- min(data$Low[data$Date >= g1 & data$Date <= g2])
-    
-    l_upper <- max(data$High[data$Date >= l1 & data$Date <= l2])
-    l_lower <- min(data$Low[data$Date >= l1 & data$Date <= l2])
+    upper <- max(data$High[data$Date >= day1 & data$Date <= day2])
+    lower <- min(data$Low[data$Date >= day1 & data$Date <= day2])
     
     f <- c(0.618, 0.5, 0.382)
     
-    g_dist <- g_upper - g_lower
-    l_dist <- l_upper - l_lower
+    dist <- upper - lower
     
     digits <- 2
-    g_lines <- round(g_dist * f + g_lower, digits)
-    l_lines <- round(l_dist * f + l_lower, digits)
+    lines <- round(dist * f + lower, digits)
+    react_var2$lines <- lines
     
     price_today <- react_var2$price_today
 
-    g_names <- ifelse(g_lines <= price_today, "Resistance", "Support")
-    l_names <- ifelse(l_lines >= price_today, "Resistance", "Support")
-    react_var2$names <- c(rbind(g_names, l_names))
+    react_var2$line_names <- ifelse(lines >= price_today, "Resistance", "Support")
     
-    react_var2$candle_day1 <- min(g1, l1)
-    react_var2$candle_day2 <- max(g2, l2)
+    react_var2$day1 <- day1
+    react_var2$day2 <- day2
     
-    react_var2$g_names <- g_names
-    react_var2$l_names <- l_names
-    
-    react_var2$g_lines <- g_lines
-    react_var2$l_lines <- l_lines
-  
-    react_var2$lines <- c(rbind(g_lines, l_lines))
+    react_var2$start_date <- min(data$Date)
+    react_var2$end_date <- max(data$Date)
 
-    react_var2$candlestick <- react_var2$candlestick %>%
-      add_segments(x = react_var2$candle_day1, 
-                   xend = react_var2$candle_day2,
+    react_var2$candlestick <- react_var2$start_candlestick %>%
+      add_segments(x = react_var2$start_date, 
+                   xend = react_var2$end_date,
                    y = react_var2$lines[1],
                    yend = react_var2$lines[1],
-                   name = react_var2$names[1], inherit = FALSE)
+                   name = react_var2$line_names[1], 
+                   line = list(color = 'black'),
+                   inherit = FALSE)
     
   })
   
@@ -278,23 +270,25 @@ server <- function(input, output, session) {
     
     react_var2$counter <- react_var2$counter + 1
     
-    if (react_var2$counter >= 7) {
+    if (react_var2$counter >= 4) {
       showNotification("All Fibonacci levels added", duration = 4, type = "error")
       return()
     }
     
     new_line <- react_var2$lines[react_var2$counter]
-    new_name <- react_var2$names[react_var2$counter]
+    new_name <- react_var2$line_names[react_var2$counter]
     
-    dates1 <- rep(react_var2$candle_day1, react_var2$counter)
-    dates2 <- rep(react_var2$candle_day2, react_var2$counter)
+    dates1 <- rep(react_var2$start_date, react_var2$counter)
+    dates2 <- rep(react_var2$end_date, react_var2$counter)
     
     react_var2$candlestick <- react_var2$candlestick %>%
-      add_segments(x = dates1, 
+      add_segments(x = dates1,
                    xend = dates2,
                    y = new_line,
                    yend = new_line,
-                   name = new_name, inherit = FALSE)
+                   name = new_name, 
+                   line = list(color = 'black'),
+                   inherit = FALSE)
     
   })
 
