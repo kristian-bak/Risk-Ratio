@@ -23,8 +23,8 @@ f_tab2 <- function() {
                     style = "margin-top: 12px"
                     ), 
              column(1, offset = 2,  
-                    actionButton(inputId = "go_load", 
-                                 label = "Load data"),
+                    tipify(actionButton(inputId = "go_load", 
+                                 label = "Load data"), title = "This will load data from Yahoo"),
                     style = "margin-top: 38px"
                     )
              ),
@@ -46,21 +46,23 @@ f_tab2 <- function() {
              condition = "input.go_load > 0", 
              fluidRow(
                column(3, offset = 3,
-                      dateRangeInput(inputId = "date_range",
-                                     label = 'date range input:',
+                      tipify(dateRangeInput(inputId = "date_range",
+                                     label = 'date range:',
                                      start = Sys.Date() - 180, end = Sys.Date()
-                      )
+                      ), title = "Fibonacci levels will be calculated using minimum and maximum stock price within the date range")
                ), 
                column(1, offset = 1,  
-                      actionButton(inputId = "go_levels", 
-                                   label = "Get levels"),
+                      tipify(actionButton(inputId = "go_levels", 
+                                   label = "Get levels"), title = "First line is 61.8% level", placement = "top"),
                       style = "margin-top: 24px"
                )
              ),
              fluidRow(
                column(1, offset = 7, 
-                      actionButton(inputId = "go_add_level", 
+                      tipify(actionButton(inputId = "go_add_level", 
                                    label = "Add level"),
+                             title = "Levels: 61.8%, 50% and 38.2%. Max. and min. price are 100% and 0%", 
+                             placement = "top"),
                       style = "margin-top: 24px")
              ),
              br()
