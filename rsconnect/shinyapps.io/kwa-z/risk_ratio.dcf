@@ -5,6 +5,6 @@ account: kwa-z
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2106498
-bundleId: 3083238
+bundleId: 3083418
 url: https://k-bak.shinyapps.io/risk_ratio/
-when: 1588194997.43041
+when: 1588198060.02769

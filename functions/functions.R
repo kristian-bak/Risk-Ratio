@@ -76,7 +76,7 @@ f_subsetList <- function(myList, elementNames) {
   lapply(elementNames, FUN=function(x) myList[[x]])
 }
 
-f_seqDate <- function(from, by = 1, length.out = 10, excludeDays = c("lørdag", "søndag")) {
+f_seqDate <- function(from, by = 1, length.out = 10, excludeDays = c("Saturday", "Sunday")) {
   dates <- seq.Date(from = from, by = by, length.out = length.out)
   dates[!weekdays(dates) %in% excludeDays]
 }

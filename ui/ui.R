@@ -7,7 +7,7 @@
 
 source("ui/ui - tab1.R")
 source("ui/ui - tab2.R")
-#source("ui/ui - tab3.R")
+source("ui/ui - tab3.R")
 
 ui <- fluidPage(
   
@@ -15,8 +15,8 @@ ui <- fluidPage(
   
   tabsetPanel(
     f_tab1(), 
-    f_tab2()
-    #,f_tab3()
+    f_tab2(),
+    f_tab3()
   ) 
   
 )
