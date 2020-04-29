@@ -92,4 +92,11 @@ f_add_dates <- function(data, from, by, length.out) {
   return(data)
 }
 
+f_format <- function(data, type) {
+  charCols <- names(type)[type]
+  numCols <- names(type)[!type]
+  data <- data[, (charCols) := lapply(.SD, as.character), .SDcols = charCols]
+  data <- data[, (numCols) := lapply(.SD, as.numeric), .SDcols = numCols]
+  return(data)
+}
 

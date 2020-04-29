@@ -23,7 +23,7 @@ f_tab2 <- function() {
                     style = "margin-top: 12px"
                     ), 
              column(1, offset = 2,  
-                    tipify(actionButton(inputId = "go_load", 
+                    tipify(actionButton(inputId = "go_load_stock", 
                                  label = "Load data"), title = "This will load data from Yahoo"),
                     style = "margin-top: 38px"
                     )
@@ -43,7 +43,7 @@ f_tab2 <- function() {
                     )
            ), 
            conditionalPanel(
-             condition = "input.go_load > 0", 
+             condition = "input.go_load_stock > 0", 
              fluidRow(
                column(3, offset = 3,
                       tipify(dateRangeInput(inputId = "date_fib_range",
