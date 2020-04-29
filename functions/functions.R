@@ -75,3 +75,21 @@ f_risk_loop <- function(data_list, stock_names, type, updateProgress = NULL) {
 f_subsetList <- function(myList, elementNames) {
   lapply(elementNames, FUN=function(x) myList[[x]])
 }
+
+f_seqDate <- function(from, by = 1, length.out = 10, excludeDays = c("lørdag", "søndag")) {
+  dates <- seq.Date(from = from, by = by, length.out = length.out)
+  dates[!weekdays(dates) %in% excludeDays]
+}
+
+f_add_dates <- function(data, from, by, length.out) {
+  var <- names(data)
+  dates <- f_seqDate(from, by, length.out)
+  n <- length(dates)
+  df_new <- data.frame(matrix(NA, nrow = n, ncol = length(var)))
+  names(df_new) <- var
+  df_new$Date <- dates
+  data <- rbind(data, df_new)
+  return(data)
+}
+
+
