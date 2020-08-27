@@ -1,4 +1,19 @@
 "Type","Name","Price","Number of shares","Value"
-"Stock","ALK-Abelló B (ALK-B.CO)",2,4,8
-"Stock","Coloplast B (COLO-B.CO)",5,5,25
-"Cash",NA,NA,NA,100
+"Stock","Tryg (TRYG.CO)",NA,NA,2735
+"Stock","NKT (NKT.CO)",NA,NA,2118
+"Stock","Matas (MATAS.CO)",NA,NA,2073
+"Stock","Lundbeck (LUN.CO)",NA,NA,1702
+"Stock","H+H International (HH.CO)",NA,NA,1916
+"Stock","GomSpace Group (GOMX.FI)",NA,NA,4067
+"Stock","Getinge B (GETI-B.ST)",NA,NA,1938
+"Stock","Columbus (COLUM.CO)",NA,NA,1390
+"Stock","Bakkafrost (BAKKAo.NO)",NA,NA,753
+"Stock","Danske Bank (DANSKE.CO)",NA,NA,12670
+"Index","ALK-Abelló B (ALK-B.CO)",NA,NA,14000
+"Index","Alm. Brand (ALMB.CO)",NA,NA,13000
+"Index","Chr. Hansen Holding (CHR.CO)",NA,NA,6244
+"Index","Carlsberg B (CARL-B.CO)",NA,NA,3163
+"Index","AGF B (AGF-B.CO)",NA,NA,958
+"Index","Fram Skandinavien B (FRAM-B.FI)",NA,NA,3616
+"Cash",NA,NA,NA,130000
+"Bond","Coloplast B (COLO-B.CO)",NA,NA,10000
